@@ -21,7 +21,7 @@ const RegisterForm = () => {
       setPassword("");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.detail) {
-        setMessage(`Erreur : ${error.response.data.detail}`);
+        setMessage(error.response.data.detail);
       } else {
         setMessage("Erreur lors de l'inscription.");
       }

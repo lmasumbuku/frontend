@@ -7,6 +7,7 @@ import MenuList from "./components/MenuList";
 import Orders from "./components/Orders";
 import AddMenuItem from "./components/AddMenuItem";
 import Navbar from "./components/Navbar";
+import './styles.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

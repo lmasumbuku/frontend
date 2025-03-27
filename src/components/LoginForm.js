@@ -1,33 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setMessage("");
+    setError("");
 
     try {
       const response = await axios.post("https://backend-fastapi-cvi0.onrender.com/auth/login", {
         username,
-        password
+        password,
       });
 
       const token = response.data.access_token;
       localStorage.setItem("token", token);
-      setMessage("Connexion réussie !");
-      setUsername("");
-      setPassword("");
-      onLogin(); // 🔄 actualiser l'état global si besoin
-    } catch (error) {
-      if (error.response?.data?.detail) {
-        setMessage(error.response.data.detail); // 👈 Affiche uniquement le message clair
-      } else {
-        setMessage("Erreur lors de la connexion.");
-      }
+      setIsAuthenticated(true);
+      navigate("/menu");
+    } catch (err) {
+      console.error(err);
+      setError("Identifiants invalides");
     }
   };
 
@@ -40,20 +38,16 @@ const LoginForm = ({ onLogin }) => {
           placeholder="Nom d'utilisateur"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <br />
+        /><br />
         <input
           type="password"
           placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
+        /><br />
         <button type="submit">Se connecter</button>
       </form>
-      {message && <p>{message}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

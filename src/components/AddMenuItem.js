@@ -37,7 +37,7 @@ const AddMenuItem = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Ajouter un plat</h2>
       <form onSubmit={handleAdd}>
         <input

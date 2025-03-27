@@ -37,7 +37,7 @@ const LoginForm = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Connexion</h2>
       <form onSubmit={handleLogin}>
         <input

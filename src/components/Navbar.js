@@ -12,17 +12,15 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
   return (
     <nav>
-      {isAuthenticated ? (
+      <Link to="/">Accueil</Link>{" | "}
+      {!isAuthenticated && <Link to="/login">Connexion</Link>}
+      {!isAuthenticated && <Link to="/register">Inscription</Link>}
+      {isAuthenticated && (
         <>
-          <Link to="/menu">🧾 Menu</Link> |{" "}
-          <Link to="/add">➕ Ajouter un plat</Link> |{" "}
-          <Link to="/orders">📦 Commandes</Link> |{" "}
-          <button onClick={handleLogout}>🚪 Déconnexion</button>
-        </>
-      ) : (
-        <>
-          <Link to="/register">S'inscrire</Link> |{" "}
-          <Link to="/login">Se connecter</Link>
+          <Link to="/menu">Menu</Link>{" | "}
+          <Link to="/add">Ajouter un plat</Link>{" | "}
+          <Link to="/orders">Commandes</Link>{" | "}
+          <button onClick={handleLogout}>Déconnexion</button>
         </>
       )}
     </nav>

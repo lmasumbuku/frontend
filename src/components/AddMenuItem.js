@@ -6,35 +6,40 @@ const AddMenuItem = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    setError("");
+    setMessage("");
 
     try {
-      const response = await axios.post(
-        "https://backend-fastapi-cvi0.onrender.com/menu/add",
-        { name, description, price: parseFloat(price) },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post("https://backend-fastapi-cvi0.onrender.com/menu/add", {
+        name,
+        description,
+        price: parseFloat(price)
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
-      setMessage("Plat ajouté avec succès !");
+      });
+
+      setMessage("✅ Plat ajouté avec succès !");
       setName("");
       setDescription("");
       setPrice("");
     } catch (err) {
       console.error(err);
-      setMessage("Erreur lors de l’ajout du plat.");
+      setError("Erreur lors de l'ajout du plat.");
     }
   };
 
   return (
     <div>
-      <h2>Ajouter un plat au menu</h2>
-      <form onSubmit={handleSubmit}>
+      <h2>Ajouter un plat</h2>
+      <form onSubmit={handleAdd}>
         <input
           type="text"
           placeholder="Nom"
@@ -42,7 +47,8 @@ const AddMenuItem = () => {
           onChange={(e) => setName(e.target.value)}
           required
         /><br />
-        <textarea
+        <input
+          type="text"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -56,7 +62,9 @@ const AddMenuItem = () => {
         /><br />
         <button type="submit">Ajouter</button>
       </form>
-      {message && <p>{message}</p>}
+
+      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

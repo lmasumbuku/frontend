@@ -22,7 +22,7 @@ const Orders = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h2>Mes Commandes</h2>
       <ul>
         {orders.map((order) => (

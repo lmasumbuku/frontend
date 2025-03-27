@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../api";
+import axios from "axios";
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -8,25 +8,32 @@ const LoginForm = ({ onLogin }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setMessage("");
+
     try {
-      const response = await axios.post("/auth/login", {
+      const response = await axios.post("https://backend-fastapi-cvi0.onrender.com/auth/login", {
         username,
-        password,
+        password
       });
 
       const token = response.data.access_token;
-      localStorage.setItem("token", token); // Sauvegarde du token
+      localStorage.setItem("token", token);
       setMessage("Connexion réussie !");
-      onLogin(); // Appelle une fonction de rafraîchissement (ex : redirection)
+      setUsername("");
+      setPassword("");
+      onLogin(); // 🔄 actualiser l'état global si besoin
     } catch (error) {
-      console.error(error);
-      setMessage(error.response?.data?.detail || "Erreur de connexion");
+      if (error.response?.data?.detail) {
+        setMessage(error.response.data.detail); // 👈 Affiche uniquement le message clair
+      } else {
+        setMessage("Erreur lors de la connexion.");
+      }
     }
   };
 
   return (
     <div>
-      <h2>Connexion Restaurateur</h2>
+      <h2>Connexion</h2>
       <form onSubmit={handleLogin}>
         <input
           type="text"
@@ -34,14 +41,16 @@ const LoginForm = ({ onLogin }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-        /><br />
+        />
+        <br />
         <input
           type="password"
           placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-        /><br />
+        />
+        <br />
         <button type="submit">Se connecter</button>
       </form>
       {message && <p>{message}</p>}

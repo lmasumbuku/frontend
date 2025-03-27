@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../api";
+import axios from "axios";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
@@ -9,40 +9,24 @@ const RegisterForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/auth/register", {
+      const response = await axios.post("https://backend-fastapi-cvi0.onrender.com/auth/register", {
         username,
-        password,
+        password
       });
-      setMessage(response.data.message || "Inscription réussie !");
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      setMessage(error.response?.data?.detail || "Erreur lors de l'inscription");
+      setMessage(response.data.message);
+    } catch (err) {
+      console.error(err);
+      setMessage("Erreur lors de l'inscription.");
     }
   };
 
   return (
-    <div>
-      <h2>Inscription Restaurateur</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Nom d'utilisateur"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        /><br />
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        /><br />
-        <button type="submit">S'inscrire</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+    <form onSubmit={handleRegister}>
+      <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nom d'utilisateur" />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mot de passe" />
+      <button type="submit">S'inscrire</button>
+      <p>{message}</p>
+    </form>
   );
 };
 

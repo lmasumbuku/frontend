@@ -5,7 +5,7 @@ const HomePage = () => {
   const token = localStorage.getItem("token");
 
   return (
-    <div>
+    <div className="container">
       <h2>Bienvenue sur la plateforme restaurateur 🍽️</h2>
 
       {!token ? (

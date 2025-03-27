@@ -22,6 +22,24 @@ const MenuList = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("Confirmer la suppression du plat ?");
+    if (!confirm) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`https://backend-fastapi-cvi0.onrender.com/menu/supprimer/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchPlats(); // 🔁 Rafraîchit la liste après suppression
+    } catch (err) {
+      console.error(err);
+      setError("Erreur lors de la suppression du plat.");
+    }
+  };
+
   useEffect(() => {
     fetchPlats();
   }, []);
@@ -36,6 +54,9 @@ const MenuList = () => {
             <strong>{item.name}</strong> - {item.description} - {item.price}€
             <br />
             <button onClick={() => setEditItemId(item.id)}>Modifier</button>
+            <button onClick={() => handleDelete(item.id)} style={{ marginLeft: "10px", color: "red" }}>
+              Supprimer
+            </button>
 
             {editItemId === item.id && (
               <EditMenuItem

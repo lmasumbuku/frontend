@@ -7,6 +7,7 @@ import MenuList from "./components/MenuList";
 import Orders from "./components/Orders";
 import AddMenuItem from "./components/AddMenuItem";
 import Navbar from "./components/Navbar";
+import RestaurantProfile from "./components/pages/RestaurantProfile";
 import './styles.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route path="/menu" element={<MenuList />} />
               <Route path="/add" element={<AddMenuItem />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/profile" element={<RestaurantProfile />} />
             </>
           )}
         </Routes>

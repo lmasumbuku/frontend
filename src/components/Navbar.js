@@ -20,6 +20,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
           <Link to="/menu">Menu</Link>{" | "}
           <Link to="/add">Ajouter un plat</Link>{" | "}
           <Link to="/orders">Commandes</Link>{" | "}
+          <Link to="/profile" className="hover:underline">Mon Profil</Link>{" | "}
           <button onClick={handleLogout}>Déconnexion</button>
         </>
       )}

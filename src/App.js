@@ -7,7 +7,7 @@ import MenuList from "./components/MenuList";
 import Orders from "./components/Orders";
 import AddMenuItem from "./components/AddMenuItem";
 import Navbar from "./components/Navbar";
-import RestaurantProfile from "./components/pages/RestaurantProfile";
+import RestaurantProfile from "./components/RestaurantProfile";
 import './styles.css';
 
 function App() {

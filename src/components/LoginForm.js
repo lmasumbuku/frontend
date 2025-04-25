@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AuthPage = ({ setIsAuthenticated }) => {
-  const [isRegistering, setIsRegistering] = useState(false); // Contrôle de l'affichage du formulaire
+  const [isRegistering, setIsRegistering] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [nomRestaurant, setNomRestaurant] = useState("");
@@ -17,10 +17,18 @@ const AuthPage = ({ setIsAuthenticated }) => {
 
   const navigate = useNavigate();
 
+  // Fonction pour gérer la connexion
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
+
+    // Vérification de la validité des champs
+    if (!username || !password) {
+      setError("Nom d'utilisateur et mot de passe sont requis.");
+      return;
+    }
+
     try {
       const response = await axios.post("https://backend-fastapi-cvi0.onrender.com/auth/login", {
         username,
@@ -29,7 +37,6 @@ const AuthPage = ({ setIsAuthenticated }) => {
 
       const token = response.data.access_token;
       localStorage.setItem("token", token);
-
       setIsAuthenticated(true);
       setSuccessMessage("✅ Connexion réussie ! Redirection...");
       setTimeout(() => navigate("/menu"), 1500);
@@ -38,10 +45,18 @@ const AuthPage = ({ setIsAuthenticated }) => {
     }
   };
 
+  // Fonction pour gérer l'inscription
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
+
+    // Validation des champs
+    if (!username || !password || !nomRestaurant || !nomRepresentant || !prenomRepresentant || !adressePostale || !email || !numeroAppel) {
+      setError("Tous les champs doivent être remplis.");
+      return;
+    }
+
     try {
       const response = await axios.post("https://backend-fastapi-cvi0.onrender.com/auth/register", {
         username,

@@ -22,7 +22,12 @@ const LoginForm = ({ setIsAuthenticated }) => {
       });
 
       const token = response.data.access_token;
+      const restaurateurId = response.data.restaurateur_id;  // Ajouter l'ID du restaurateur
+
+      // Stocker le token et l'ID du restaurateur dans le localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem("restaurateur_id", restaurateurId);
+
       setIsAuthenticated(true);
       setSuccessMessage("✅ Connexion réussie ! Redirection...");
 
@@ -32,7 +37,11 @@ const LoginForm = ({ setIsAuthenticated }) => {
       }, 1500);
     } catch (err) {
       console.error(err);
-      setError("Identifiants invalides");
+      if (err.response && err.response.data) {
+        setError(err.response.data.detail || "Identifiants invalides");
+      } else {
+        setError("Erreur inconnue, veuillez réessayer.");
+      }
     }
   };
 

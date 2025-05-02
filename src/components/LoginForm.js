@@ -119,7 +119,7 @@ const AuthPage = ({ setIsAuthenticated }) => {
           <button type="submit">S'inscrire</button>
         </form>
       ) : (
-        {/* Formulaire de connexion */}
+        // Formulaire de connexion
         <form onSubmit={handleLogin}>
           <input
             type="text"

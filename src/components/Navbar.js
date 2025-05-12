@@ -1,33 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const HomePage = () => {
-  const token = localStorage.getItem("token");
+const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      navigate("/menu");  // Redirige l'utilisateur directement vers le menu s'il est connecté
-    }
-  }, [token, navigate]);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    navigate("/login"); // Redirige vers la page de connexion après déconnexion
+  };
 
   return (
-    <div className="container">
-      <h2>Bienvenue sur la plateforme restaurateur 🍽️</h2>
-
-      {!token ? (
+    <nav>
+      <Link to="/">Accueil</Link>{" | "}
+      {!isAuthenticated && <Link to="/login">Connexion</Link>}
+      {!isAuthenticated && <Link to="/register">Inscription</Link>}
+      {isAuthenticated && (
         <>
-          <h3>Commencez ici :</h3>
-          <p>
-            <Link to="/register">❤️ S'inscrire</Link>{" "}
-            <Link to="/login">🔑 Se connecter</Link>
-          </p>
+          <Link to="/menu">Menu</Link>{" | "}
+          <Link to="/add">Ajouter un plat</Link>{" | "}
+          <Link to="/orders">Commandes</Link>{" | "}
+          <Link to="/profile" className="hover:underline">Mon Profil</Link>{" | "}
+          <button onClick={handleLogout}>Déconnexion</button>
         </>
-      ) : (
-        <p>Vous êtes connecté. Utilisez le menu ci-dessus pour naviguer.</p>
       )}
-    </div>
+    </nav>
   );
 };
 
-export default HomePage;
+export default Navbar;

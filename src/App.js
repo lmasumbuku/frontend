@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
-import LoginForm from "./components/LoginForm";
+import AuthPage from "./components/AuthPage"; // Import de AuthPage
 import MenuList from "./components/MenuList";
 import Orders from "./components/Orders";
 import AddMenuItem from "./components/AddMenuItem";
@@ -24,8 +24,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<AuthPage />} />
-          <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/register" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
           {isAuthenticated && (
             <>
               <Route path="/menu" element={<MenuList />} />

@@ -26,6 +26,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/ia-orders" element={<IaOrdersPage />} />
           {isAuthenticated && (
             <>
               <Route path="/menu" element={<MenuList />} />

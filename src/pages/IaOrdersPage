@@ -1,0 +1,46 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const IaOrdersPage = () => {
+  const [orders, setOrders] = useState([]);
+  const [error, setError] = useState("");
+
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("https://backend-fastapi-cvi0.onrender.com/orders/ia", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setOrders(response.data);
+    } catch (err) {
+      setError("Erreur lors du chargement des commandes IA.");
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  return (
+    <div className="container">
+      <h2>Commandes prises par l'IA</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <ul>
+        {orders.map((order) => (
+          <li key={order.id}>
+            <strong>Commande #{order.id}</strong>
+            <br />
+            {order.items.map((item) => (
+              <p key={item}>{item}</p>
+            ))}
+            <p>Status: {order.status}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default IaOrdersPage;

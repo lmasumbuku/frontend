@@ -7,6 +7,7 @@ import Orders from "./components/Orders";
 import AddMenuItem from "./components/AddMenuItem";
 import Navbar from "./components/Navbar";
 import RestaurantProfile from "./components/RestaurantProfile";
+import AiOrderSender from "./components/AiOrderSender";
 import './styles.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/register" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/ia-orders" element={<IaOrdersPage />} />
+          <Route path="/ai-order" element={<AiOrderSender />} />
           {isAuthenticated && (
             <>
               <Route path="/menu" element={<MenuList />} />

@@ -8,6 +8,7 @@ import AddMenuItem from "./components/AddMenuItem";
 import Navbar from "./components/Navbar";
 import RestaurantProfile from "./components/RestaurantProfile";
 import AiOrderSender from "./components/AiOrderSender";
+import IaOrdersPage from "./components/IaOrdersPage";
 import './styles.css';
 
 function App() {

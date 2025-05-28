@@ -24,6 +24,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
           <Link to="/menu" style={{ color: "#fff", margin: "0 10px" }} aria-label="Voir le menu">Menu</Link>{" | "}
           <Link to="/add" style={{ color: "#fff", margin: "0 10px" }} aria-label="Ajouter un plat">Ajouter un plat</Link>{" | "}
           <Link to="/orders" style={{ color: "#fff", margin: "0 10px" }} aria-label="Voir les commandes">Commandes</Link>{" | "}
+          <Link to="/ia-orders" style={{ color: "#fff", margin: "0 10px" }} aria-label="Commandes IA">Commandes IA</Link>{" | "}
           <Link to="/profile" className="hover:underline" style={{ color: "#fff", margin: "0 10px" }} aria-label="Mon profil">Mon Profil</Link>{" | "}
           <button onClick={handleLogout} style={{ padding: "5px 10px", backgroundColor: "#f44336", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }} aria-label="Se déconnecter">
             Déconnexion

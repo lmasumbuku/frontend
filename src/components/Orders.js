@@ -9,12 +9,12 @@ const Orders = () => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
 
-       if (!token) {
-      setError("Aucun token trouvé. Veuillez vous reconnecter.");
-      return;
-    }
+      if (!token) {
+        setError("Aucun token trouvé. Veuillez vous reconnecter.");
+        return;
+      }
 
-    console.log("Token envoyé :", token); // Debug important
+      console.log("Token envoyé :", token); // Debug important
       
       try {
         const response = await axios.get(
@@ -47,7 +47,16 @@ const Orders = () => {
           {orders.map((order) => (
             <li key={order.id}>
               <strong>Commande #{order.id}</strong> - ✅ Acceptée - Items :{" "}
-              {order.items.join(", ")}
+              {order.items.join(", ")} 
+              <br />
+              <small>
+                Source :{" "}
+                {order.source === "ia" ? (
+                  <span style={{ color: "blue", fontWeight: "bold" }}>Voiceflow 🤖</span>
+                ) : (
+                  <span style={{ color: "green" }}>Manuelle</span>
+                )}
+              </small>
             </li>
           ))}
         </ul>
